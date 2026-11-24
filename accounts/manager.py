@@ -3,7 +3,6 @@ from django.contrib.auth.base_user import BaseUserManager
 
 class CustomUserManager(BaseUserManager):
     def create_user(self,email,password,first_name,last_name,**extra_fields):
-        print(extra_fields)
         if not email:
             raise ValueError("You must provide email")
         if not password:
@@ -11,9 +10,9 @@ class CustomUserManager(BaseUserManager):
         if not first_name:
             raise ValueError("You must provide first_name")
         if not last_name:
-            raise ValueError("You must provide first_name")
+            raise ValueError("You must provide last_name")
 
-        email=self.normalize_email(email)
+        email=self.normalize_email(email).lower()
 
         user = self.model(
             email=email,
